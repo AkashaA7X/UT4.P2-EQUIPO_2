@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+'''
+Created on Feb 16, 2022
+
+@author: celia
+'''
+
 import time
 import getpass
 
@@ -9,15 +16,15 @@ print('      Pulsa ENTER para comenzar      ')
 print('                                     ')
 print('*************************************')
 
-
+input()
 
 time.sleep(2)
 print("REGLAS: Debes adivinar la palabra secreta que ha colocado el jugador 1")
 time.sleep(3)
 print("Pulsa Enter para continuar")
 input()
-palabraSecreta=input('Introduce la palabra secreta')
-##ahorcado
+palabraSecreta=getpass.getpass('Introduce la palabra secreta:')
+##Dibujo del ahorcado
 ahorcado=['''
      !=====N
      O     N
@@ -47,7 +54,16 @@ ahorcado=['''
      !=====N
      O     N
    / |     N
-   \       N
+   \ |     N
+           N
+           N
+           N
+           N''','''
+    
+     !=====N
+     O     N
+     |     N
+     |     N
            N
            N
            N
@@ -70,7 +86,7 @@ ahorcado=['''
            N''']
 
 ##Numero de vidas
-vidas= 5
+vidas= 6
 listaLetrasAdivinadas=[]
 # Imprimir longitud de palabra
 print(ahorcado[vidas])
@@ -90,7 +106,9 @@ while True:
                 listaLetrasAdivinadas.append(letraAdivinada)
                 if(letraAdivinada.lower() in palabraSecreta):
                     #Cuando aciertas una letra, rompe el bucle y va a mostrar lo que ha ido consiguiendo el usuario
-                    print("¡BUEN TRABAJO !, Acertaste una letra")
+                    print("")
+                    print("! BUEN TRABAJO !, Acertaste una letra")
+                    print("")
                     break
                 else:
                     vidas-=1
@@ -98,8 +116,8 @@ while True:
                     time.sleep(2)
                     
                     print(ahorcado[vidas])
-                    print("Pierdes una vida")
-                    print("Vidas restantes: ",vidas)
+                    print("Pierdes una vida | VIDAS RESTANTES",vidas)
+                    
                     break
     if vidas<=0:
         print("Haz perdido la palabra secreta era: "+ palabraSecreta)
@@ -109,7 +127,7 @@ while True:
     estadoPalabra=''
     for letra in palabraSecreta:
         if letra in listaLetrasAdivinadas:
-            estadoPalabra = estadoPalabra + letra
+            estadoPalabra = estadoPalabra + letra + " "
         else:
             estadoPalabra = estadoPalabra + "_ "
             letras_faltantes = letras_faltantes + 1
@@ -117,8 +135,7 @@ while True:
     ## Imprimir palabra con algunas letras
     print(estadoPalabra)
  
- 
-    if letras_faltantes == 0:
-        print("Felicidades has ganado")
+    if letras_faltantes == 0 or letraAdivinada == palabraSecreta:
+        print("!!!!FELICIDADES, HAS GANADO!!!!!")
         print("La palabra secreta es: " + palabraSecreta)
         break
