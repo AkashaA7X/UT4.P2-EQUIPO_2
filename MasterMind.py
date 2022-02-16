@@ -28,7 +28,7 @@ while len(codigoSecreto) < 4:
     numero = random.choice(numeros)
     if numero not in codigoSecreto:
         codigoSecreto+=numero
-print(codigoSecreto)
+
 codigoUsu=input('Introduce un codigo: ')
 
 while codigoSecreto != codigoUsu:
@@ -46,11 +46,9 @@ while codigoSecreto != codigoUsu:
     
     
     if contmuertos<4 and contmuertos !=0 or contheridos<4 and contheridos:
-        print('Nº muertos:',contmuertos)
+        print('Nº muertos:',contmuertos, '-->', muertos)
         print('Nº heridos:', contheridos, '-->', heridos)
-        for j in muertos:
-            print(j,end=' ')
-        print('\n')
+        
         codigoUsu=input('Introduce un nuevo codigo: ')
     elif contmuertos==0 and contheridos==0:
         print('No ha habido suerte, ningun digito coincide')
@@ -61,5 +59,4 @@ while codigoSecreto != codigoUsu:
         
 print('¡¡¡Fin de la partida!!! ')
 print('Codigo secreto: ',codigoSecreto)
-print('Numero de intetos:',intentos)
-    
+print('Numero de intentos:',intentos)
