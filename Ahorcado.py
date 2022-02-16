@@ -1,5 +1,4 @@
 import time
-import getpass
 
 print('*************************************')
 print('                                     ')
@@ -16,7 +15,9 @@ print("REGLAS: Debes adivinar la palabra secreta que ha colocado el jugador 1")
 time.sleep(3)
 print("Pulsa Enter para continuar")
 input()
-palabraSecreta=getpass.getpass('Introduce la palabra secreta:')
+#La palabra secreta que introduzca estará en minusculas para favorecer la ejecución del programa
+palabraSecreta=input('Introduce la palabra secreta:').lower()
+
 ##Dibujo del ahorcado
 ahorcado=['''
      !=====N
@@ -84,51 +85,77 @@ listaLetrasAdivinadas=[]
 # Imprimir longitud de palabra
 print(ahorcado[vidas])
 print('_ ' *len(palabraSecreta))
-
+#Boleano para salir por ganar el juego
+ganaPalabra=False
+ganaLetra=False
 while True:
-    while True:
-        letraAdivinada= input("Introduce una letra:")
-        #En caso de que se haya introducido mas de un digito o sea un numero salta error
-        if(len(letraAdivinada)!=1 and letraAdivinada.isnumeric()):
-            print("Eso no es una letra, introduce una letra:")
-        else:
-            if letraAdivinada.lower() in listaLetrasAdivinadas:
-                print("Ya lo intentaste con esa letra, prueba otra")
-                print("Letras intentadas :",listaLetrasAdivinadas)
-            else:
-                listaLetrasAdivinadas.append(letraAdivinada)
-                if(letraAdivinada.lower() in palabraSecreta):
-                    #Cuando aciertas una letra, rompe el bucle y va a mostrar lo que ha ido consiguiendo el usuario
-                    print("")
-                    print("¡ BUEN TRABAJO !, Acertaste una letra")
-                    print("")
-                    break
+    while ganaPalabra==False or ganaLetra==False or vidas<=0:
+        op=input("¿Que deseas introducir?\n 1-Letra \ 2-Palabra: ")
+        
+        if(op=='1'):
+            while True:
+                letraAdivinada= input("Introduce una letra:").lower()
+                #En caso de que se haya introducido mas de un digito o sea un numero salta error
+            
+                if(letraAdivinada.isnumeric()):
+                    print("Eso no es una letra, introduce una letra:")
                 else:
-                    vidas-=1
-                    print("Letra erronea...")
-                    time.sleep(2)
-                    
-                    print(ahorcado[vidas])
-                    print("Pierdes una vida | VIDAS RESTANTES",vidas)
-                    
-                    break
+                    if letraAdivinada.lower() in listaLetrasAdivinadas:
+                        print("Ya lo intentaste con esa letra, prueba otra")
+                        print("Letras intentadas :",listaLetrasAdivinadas)
+                    else:
+                        listaLetrasAdivinadas.append(letraAdivinada)
+                        if(letraAdivinada.lower() in palabraSecreta):
+                            #Cuando aciertas una letra, rompe el bucle y va a mostrar lo que ha ido consiguiendo el usuario
+                            print("")
+                            print("! BUEN TRABAJO !, Acertaste una letra")
+                            print("")
+                            break
+                        else:
+                            vidas-=1
+                            print("Letra erronea...")
+                            time.sleep(2)
+                            print(ahorcado[vidas])
+                            print("Pierdes una vida | VIDAS RESTANTES",vidas)
+                            break
+            #Se establece una variable para contar cuantas letras le faltan por adivinar
+            letras_faltantes = 0
+            estadoPalabra=''
+            for letra in palabraSecreta:
+                if letra in listaLetrasAdivinadas:
+                    estadoPalabra = estadoPalabra + letra + " "
+                else:
+                    estadoPalabra = estadoPalabra + "_ "
+                    letras_faltantes = letras_faltantes + 1
+             
+            ## Imprimir palabra con algunas letras
+            print(estadoPalabra)
+            if vidas<=0:
+                break
+            if letras_faltantes == 0 :
+                print("!!!!FELICIDADES, HAS GANADO!!!!!")
+                print("La palabra secreta es: " + palabraSecreta)
+                ganaLetra=True
+                break
+        elif(op=='2'):    
+            palabraAdivina=input('Introduce la palabra secreta:')
+            if palabraAdivina.lower() == palabraSecreta.lower():
+                print("!!!!FELICIDADES, HAS GANADO!!!!!")
+                print("La palabra secreta es: " + palabraSecreta.lower())
+                ganaPalabra=True
+                break
+            else:
+                print(" HAS PERDIDO ")
+                vidas=0
+                break
+        else:
+            print("Debes elegir una opción válida:")
+        
     if vidas<=0:
         print("Haz perdido la palabra secreta era: "+ palabraSecreta)
         break
-    #Se establece una variable para contar cuantas letras le faltan por adivinar
-    letras_faltantes = 0
-    estadoPalabra=''
-    for letra in palabraSecreta:
-        if letra in listaLetrasAdivinadas:
-            estadoPalabra = estadoPalabra + letra + " "
-        else:
-            estadoPalabra = estadoPalabra + "_ "
-            letras_faltantes = letras_faltantes + 1
- 
-    ## Imprimir palabra con algunas letras
-    print(estadoPalabra)
- 
-    if letras_faltantes == 0:
-        print("¡¡¡¡FELICIDADES, HAS GANADO!!!!!")
-        print("La palabra secreta es: " + palabraSecreta)
+    elif ganaPalabra==True:
         break
+    elif ganaLetra==True:
+        break
+    
