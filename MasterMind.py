@@ -20,28 +20,28 @@ def pedirNumero():
         if (codigoUsu.isnumeric() == False) :
             print("Debes introducir un codigo de 4 digitos numericos:")
         elif (len(codigoUsu) !=4):
-           print("Debes introducir un codigo de 4 digitos:")
+            print("Debes introducir un codigo de 4 digitos:")
         else:
             break
     return codigoUsu
     
 
-print('*************************************')
-print('                                     ')
-print('          JUEGO MASTERMIND           ')
-print('                                     ')
-print('      Pulsa ENTER para comenzar      ')
-print('                                     ')
-print('*************************************')
+print('**************************************************************************')
+print('                                                                          ')
+print('                           JUEGO MASTERMIND                               ')
+print('                                                                          ')
+print('                      Pulsa ENTER para comenzar                           ')
+print('                                                                          ')
+print("**************************************************************************")
 
 input()
 time.sleep(1)
 print("**************************************************************************")
-print("            REGLAS: Debes adivinar el codigo secreto de 4 digitos         ")
-print("        Aquel numero que introduzcas y este en la misma posicion          ")
-print("        que el numero del codigo secreto, es un numero muerto.            ")
-print("        En el caso de que introduzcas un numero que se encuentra en el    ")
-print("      codigo secreto pero no en la misma posicion, será un numero herido  ")
+print("            REGLAS: Debes adivinar el código secreto de 4 dígitos         ")
+print("        Aquel número que introduzcas y esté en la misma posición          ")
+print("        que el número del código secreto, es un número muerto.            ")
+print("        En el caso de que introduzcas un número que se encuentra en el    ")
+print("      código secreto pero no en la misma posición, será un número herido  ")
 print("**************************************************************************")
 time.sleep(1)
 print("                    Pulsa ENTER cuando estes listo                    ")
@@ -50,7 +50,6 @@ while len(codigoSecreto) < 4:
     numero = random.choice(numeros)
     if numero not in codigoSecreto:
         codigoSecreto+=numero
-
 
 
 codigoU= pedirNumero()    
@@ -69,11 +68,8 @@ while codigoSecreto != codigoU:
     
     
     if contmuertos<4 and contmuertos !=0 or contheridos<4 and contheridos:
-        print('Nº muertos:',contmuertos)
+        print('Nº muertos:',contmuertos, '-->', muertos)
         print('Nº heridos:', contheridos, '-->', heridos)
-        for j in muertos:
-            print(j,end=' ')
-        print('\n')
         codigoU= pedirNumero() 
         
     elif contmuertos==0 and contheridos==0:
@@ -84,7 +80,7 @@ while codigoSecreto != codigoU:
     contmuertos=0
     contheridos=0
         
-print('¡¡¡Fin de la partida!!! ')
+print('!!!Fin de la partida!!! ')
 print('Codigo secreto: ',codigoSecreto)
 print('Numero de intentos:',intentos)
 
